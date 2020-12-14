@@ -7,7 +7,8 @@
 
 const char* wifiName = "Azkaban";
 const char* wifiPass = "voldemort";
-  
+
+bool isOpen = false;
 ESP8266WebServer server(80);
  
 //Handles http request 
@@ -17,12 +18,54 @@ void handleRoot() {
 
   server.send(200, "text/plain", "hello from esp8266!");
 }
+
+void resetPins() {
+  digitalWrite(D0, LOW);
+  digitalWrite(D1, LOW);
+}
+
+void closeDoor() {
+
+  if(!isOpen) {
+    server.send(200, "text/plain", "Door already closed.");
+    return;
+  }
+  digitalWrite(D0, LOW);
+  digitalWrite(D1, HIGH);
+  // delay(1000);
+  // resetPins();
+
+  server.send(200, "text/plain", "Close door.");
+  isOpen = false;
+}
  
- 
+void openDoor() {
+
+  if(isOpen) {
+    server.send(200, "text/plain", "Door already open.");
+    return;
+  }
+
+  digitalWrite(D0, HIGH);
+  digitalWrite(D1, LOW);
+  // delay(250);
+  // resetPins();
+  
+  server.send(200, "text/plain", "Open door.");
+  isOpen = true;
+}
+
+
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   
   Serial.begin(9600);
+
+  Serial.println("Setting D0 and D1");
+  pinMode(D0, OUTPUT);
+  pinMode(D1, OUTPUT);
+  closeDoor();
   delay(10);
   // We start by connecting to a WiFi network
   Serial.println();
@@ -51,6 +94,9 @@ void setup() {
  
   server.on("/", handleRoot);  //Associate handler function to path
     
+  server.on("/open", openDoor);  //Associate handler function to path
+  server.on("/close", closeDoor);  //Associate handler function to path
+  
   server.begin();                           //Start server
   Serial.println("HTTP server started");
 }
