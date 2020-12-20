@@ -26,14 +26,14 @@ void resetPins() {
 
 void closeDoor() {
 
-  if(!isOpen) {
-    server.send(200, "text/plain", "Door already closed.");
-    return;
-  }
+  // if(!isOpen) {
+  //   server.send(200, "text/plain", "Door already closed.");
+  //   return;
+  // }
   digitalWrite(D0, LOW);
   digitalWrite(D1, HIGH);
-  // delay(1000);
-  // resetPins();
+  delay(2000);
+  resetPins();
 
   server.send(200, "text/plain", "Close door.");
   isOpen = false;
@@ -41,10 +41,10 @@ void closeDoor() {
  
 void openDoor() {
 
-  if(isOpen) {
-    server.send(200, "text/plain", "Door already open.");
-    return;
-  }
+  // if(isOpen) {
+  //   server.send(200, "text/plain", "Door already open.");
+  //   return;
+  // }
 
   digitalWrite(D0, HIGH);
   digitalWrite(D1, LOW);
@@ -53,6 +53,12 @@ void openDoor() {
   
   server.send(200, "text/plain", "Open door.");
   isOpen = true;
+}
+
+void reset() {
+  resetPins();
+  server.send(200, "text/plaIn", "Reset Done");
+  
 }
 
 
@@ -95,7 +101,8 @@ void setup() {
   server.on("/", handleRoot);  //Associate handler function to path
     
   server.on("/open", openDoor);  //Associate handler function to path
-  server.on("/close", closeDoor);  //Associate handler function to path
+  server.on("/close", closeDoor);
+  server.on("/reset", reset);  //Associate handler function to path
   
   server.begin();                           //Start server
   Serial.println("HTTP server started");
