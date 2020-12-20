@@ -7,7 +7,7 @@
             ],
             "defines": [],
             "macFrameworkPath": [],
-            "compilerPath": "C:\\cygwin64\\bin\\gcc.exe",
+            "compilerPath": "/usr/local/bin/gcc-10",
             "cStandard": "gnu18",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "gcc-x64"
