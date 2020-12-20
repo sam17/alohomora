@@ -1,20 +1,3 @@
-#server{
-#    location /test {
-#        rewrite ^/test(.*)$ https://soumyadeep.in redirect;
-#    }
-
-#    server_name 134.209.145.155;
-
-#    location /test {
-#	return 302 https://soumyadeep.in;
-#    }
-
-#    location / {
-#	return 302 https://google.in;
-#    }
-#}
-
-
 server {
     listen 80;
     listen [::]:80;
