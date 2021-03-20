@@ -27,7 +27,14 @@
 			"problemMatcher": [
 				"$platformio"
 			],
-			"label": "PlatformIO: Upload and Monitor"
+			"options": {
+				"uploadPort": "firang.local",
+			},
+			"label": "PlatformIO: Upload and Monitor",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
