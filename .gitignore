@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+facial_recognition/dataset/*
+facial_recognition/*.pickle
