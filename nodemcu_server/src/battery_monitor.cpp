@@ -11,6 +11,7 @@ class BatteryMonitor
     float R2 = 7500.0;
     bool debug = false;
 
+    
 public:
     BatteryMonitor(int input_signal, bool debug)
     {
@@ -24,13 +25,18 @@ public:
         Serial.print("DC VOLTMETER");
     }
 
-    void loop()
-    {
+    float getBatteryVoltage() {
         int value = analogRead(signal);
         float vout = (value * 3.0) / 1024.0;
         float vin = vout / (R2 / (R1 + R2));
+        return vin;
+    }
+
+    void loop()
+    {
         if (debug)
         {
+            float vin = getBatteryVoltage();
             Serial.print("INPUT V= ");
             Serial.println(vin);
         }
