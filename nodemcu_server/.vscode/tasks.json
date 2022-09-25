@@ -28,7 +28,7 @@
 				"$platformio"
 			],
 			"options": {
-				"uploadPort": "firang.local",
+				"uploadPort": "alohomora.local"
 			},
 			"label": "PlatformIO: Upload and Monitor",
 			"group": {
@@ -36,5 +36,4 @@
 				"isDefault": true
 			}
 		}
-	]
 }
